@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include<ctype.h>
+#include <ctype.h>
 #include <stdlib.h>
 
 int main(int argc, char *argv[])
@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     char *fo = NULL;
     int number_lines = 0;
     int count_words = 0;
-    int count_lett= 0;
+    int count_lett = 0;
 
     for (int i = 1; i < argc; i++)
     {
@@ -36,27 +36,38 @@ int main(int argc, char *argv[])
     }
 
     char info[1024];
-    
+    int line_num = 0;
+    int word_count = 0;
+    int total = 0;
 
     while (fgets(info, sizeof(info), fptr))
     {
-        
+        line_num++;
+
         int in_word = 0;
-        
         for (int i = 0; info[i] != '\0'; i++)
         {
-            if 
-        }
-        
-    }
-        if(number_lines){
-            printf("%d",line_num);
-        }
-        if(count_words){
-            printf("%d",word_count);
-        }
-        if(count_lett){
-            printf("%d",total);
-        }
+            if (isalpha(info[i]))
+                total++;
 
+            if (isspace(info[i]))
+                in_word = 0;
+            else if (!in_word)
+            {
+                in_word = 1;
+                word_count++;
+            }
+        }
+    }
+
+    fclose(fptr);
+
+    if (number_lines)
+        printf("%d\n", line_num);
+    if (count_words)
+        printf("%d\n", word_count);
+    if (count_lett)
+        printf(" %d\n", total);
+
+    return 0;
 }
